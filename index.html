@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP Test</title>
+</head>
+<body>
+  <h1></h1>
+    <h2>Your IP Address:</h2>
+    <p id="userIP">Fetching...</p>
+
+    <script>
+navigator.geolocation.getCurrentPosition(
+    function (position) {
+        let userLat = position.coords.latitude;
+        let userLon = position.coords.longitude;
+
+        // ✅ Set allowed location (Example: Office Location)
+        let allowedLat = 28.536482;  // Change to your location
+        let allowedLon = 77.312420;  // Change to your location
+        let radius = 0.10; // 🔹 ~100 meters in latitude
+
+        // 🔹 Calculate distance (Approximate)
+        let distance = Math.sqrt(
+            Math.pow(userLat - allowedLat, 2) +
+            Math.pow(userLon - allowedLon, 2)
+        );
+
+        if (distance <= radius) {
+            alert("✅ Access Granted: You are inside the 10km area.");
+        } else {
+            alert("❌ Access Denied: You are outside the 100m area.");
+        }
+    },
+    function (error) {
+        alert("❌ Location access denied! Please enable GPS.");
+    }
+);
+    </script>
+</body>
+</html>
